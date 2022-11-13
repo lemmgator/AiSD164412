@@ -21,13 +21,11 @@ class LinkedList:
         self.tail = None
 
     def push(self, value: Any) -> None:
-        if self.head is None:
-            self.head = Node(value)
+        temp = self.head
+        self.head = Node(value)
+        self.head.next = temp
+        if temp is None:
             self.tail = self.head
-        else:
-            temp = self.head
-            self.head = Node(value)
-            self.head.next = temp
 
     def append(self, value: Any) -> None:
         if self.head is None:
@@ -56,17 +54,18 @@ class LinkedList:
         after.next = temp
 
     def pop(self) -> Any:
-        val = self.head.value
+        temp = self.head
         self.head = self.head.next
-        return val
+        return temp
 
     def remove_last(self) -> Any:
-        val = self.tail.value
         temp = self.head
         while temp.next is not self.tail:
             temp = temp.next
+        w = temp.next
         temp.next = None
-        return val
+        self.tail = temp
+        return w
 
     def remove(self, after: Node) -> None:
         if after is None:
@@ -189,11 +188,11 @@ assert str(list_) == '0 -> 1 -> 5 -> 9 -> 10'
 
 first_element = list_.node(at=0)
 returned_first_element = list_.pop()
-assert first_element.value == returned_first_element
+assert first_element == returned_first_element
 
 last_element = list_.node(at=3)
 returned_last_element = list_.remove_last()
-assert last_element.value == returned_last_element
+assert last_element == returned_last_element
 
 
 # wywołania zadanie 2
@@ -206,7 +205,7 @@ stack.push(10)
 stack.push(1)
 assert len(stack) == 3
 
-top_value = stack.pop()
+top_value = stack.pop().value
 assert top_value == 1
 assert len(stack) == 2
 
@@ -223,7 +222,7 @@ queue.enqueue('klient2')
 queue.enqueue('klient3')
 assert str(queue) == 'klient1, klient2, klient3'
 
-client_first = queue.dequeue()
+client_first = queue.dequeue().value
 assert client_first == 'klient1'
 assert str(queue) == 'klient2, klient3'
 assert len(queue) == 2
