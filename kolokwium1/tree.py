@@ -37,9 +37,8 @@ class TreeNode:
         if self.value == value:
             return self
         for i in self.children:
-            w = i.search(value)
-            if w:
-                return w
+            if i.search(value):
+                return i.search(value)
 
     def show(self, g=Digraph('g')):
         g.node(str(self), str(self.value))
