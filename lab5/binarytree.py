@@ -1,4 +1,5 @@
 from typing import Any, Callable
+from graphviz import *
 
 
 class BinaryNode:
@@ -49,6 +50,16 @@ class BinaryNode:
         if self.right_child:
             self.right_child.traverse_pre_order(visit)
 
+    def show(self, g=Digraph('g')):
+        g.node(str(self), str(self.value))
+        if self.left_child:
+            g.edge(str(self), str(self.left_child))
+            self.left_child.show(g)
+        if self.right_child:
+            g.edge(str(self), str(self.right_child))
+            self.right_child.show(g)
+        return g
+
     def __str__(self) -> str:
         return str(self.value)
 
@@ -68,4 +79,5 @@ class BinaryTree:
     def traverse_post_order(self, visit: Callable[[Any], None]) -> None:
         self.root.traverse_post_order(visit)
 
-    # def show(self):
+    def show(self) -> None:
+        self.root.show().render(filename='binarytree', format='png', cleanup=True, view=True)
