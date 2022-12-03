@@ -8,7 +8,7 @@ def main() -> None:
     # min() przed dodaniem
     print(drzewo.root.min().value)
 
-    # drzewo.insert_list() -> insert() -> _insert()
+    # dodawanie elementow z listy
     drzewo.insert_list([3, 10, 14, 6, 7, 1, 4, 13, 2, 5, 9, 15])
 
     # min() po dodaniu
@@ -26,7 +26,7 @@ def main() -> None:
     drzewo.remove(9)
     drzewo.remove(15)
 
-    # czy zawiera 15 (wywalilo to False)
+    # czy zawiera 15 (False)
     print(drzewo.contains(15))
 
     # renderowanie drzewa

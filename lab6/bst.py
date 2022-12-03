@@ -17,14 +17,14 @@ class BinaryNode:
             return self.left_child.min()
         return self
 
-    def show(self, g=Digraph('g')):
-        g.node(str(self), str(self.value))
+    def show(self, g=Digraph('g'), color='black'):
+        g.node(str(self), str(self.value), color=color, shape='circle')
         if self.left_child:
             g.edge(str(self), str(self.left_child))
-            self.left_child.show(g)
+            self.left_child.show(g, 'red')
         if self.right_child:
             g.edge(str(self), str(self.right_child))
-            self.right_child.show(g)
+            self.right_child.show(g, 'blue')
         return g
 
     def __str__(self) -> str:
@@ -40,14 +40,14 @@ class BinarySearchTree:
     def insert(self, value: Any) -> None:
         if self.contains(value):
             return
-        self.root = self._insert(self.root, value)
+        self.root = self.__insert(self.root, value)
 
-    def _insert(self, node: BinaryNode, value: Any) -> BinaryNode:
+    def __insert(self, node: BinaryNode, value: Any) -> BinaryNode:
         if node:
             if value < node.value:
-                node.left_child = self._insert(node.left_child, value)
+                node.left_child = self.__insert(node.left_child, value)
             else:
-                node.right_child = self._insert(node.right_child, value)
+                node.right_child = self.__insert(node.right_child, value)
         else:
             node = BinaryNode(value)
         return node
@@ -69,13 +69,13 @@ class BinarySearchTree:
 
     def remove(self, value: Any) -> None:
         if self.contains(value):
-            self.root = self._remove(self.root, value)
+            self.root = self.__remove(self.root, value)
 
-    def _remove(self, node: BinaryNode, value: Any) -> BinaryNode:
+    def __remove(self, node: BinaryNode, value: Any) -> BinaryNode:
         if value == node.value:
             if node.left_child and node.right_child:
                 node.value = node.right_child.min().value
-                node.right_child = self._remove(node.right_child, node.right_child.min().value)
+                node.right_child = self.__remove(node.right_child, node.right_child.min().value)
             elif node.left_child:
                 node = node.left_child
             elif node.right_child:
@@ -86,10 +86,10 @@ class BinarySearchTree:
                 else:
                     node = None
         elif value < node.value:
-            node.left_child = self._remove(node.left_child, value)
+            node.left_child = self.__remove(node.left_child, value)
         else:
-            node.right_child = self._remove(node.right_child, value)
+            node.right_child = self.__remove(node.right_child, value)
         return node
 
     def show(self) -> None:
-        self.root.show().render(filename='binarysearchtree', format='png', cleanup=True, view=False)
+        self.root.show().render(filename='binarysearchtree', format='png', cleanup=True, view=True)
