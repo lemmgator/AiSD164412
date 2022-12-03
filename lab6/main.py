@@ -14,7 +14,7 @@ def main() -> None:
     # min() po dodaniu
     print(drzewo.root.min().value)
 
-    # czy zawiera 1 (False)
+    # czy zawiera 1 (True)
     print(drzewo.contains(1))
 
     # czy zawiera 15 (True)
