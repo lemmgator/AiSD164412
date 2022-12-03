@@ -76,9 +76,9 @@ class BinarySearchTree:
             if node.left_child and node.right_child:
                 node.value = node.right_child.min().value
                 node.right_child = self._remove(node.right_child, node.right_child.min().value)
-            elif node.left_child and (not node.right_child):
+            elif node.left_child:
                 node = node.left_child
-            elif (not node.left_child) and node.right_child:
+            elif node.right_child:
                 node = node.right_child
             else:
                 if node == self.root:
