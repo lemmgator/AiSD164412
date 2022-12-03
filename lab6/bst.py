@@ -83,8 +83,8 @@ class BinarySearchTree:
             else:
                 if node == self.root:
                     node.value = 0
-                    return node
-                node = None
+                else:
+                    node = None
         elif value < node.value:
             node.left_child = self._remove(node.left_child, value)
         else:
